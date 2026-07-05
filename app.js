@@ -88,7 +88,9 @@ class Particle {
     reset(initial = false) {
         this.x = Math.random() * this.cw;
         this.y = initial ? Math.random() * this.ch : this.ch + Math.random() * 40;
-        this.radius = Math.random() * 2.5 + 0.5;
+        this.isHeart = Math.random() < 0.24;
+        // Hearts are drawn noticeably bigger than pollen dots, or the shape just looks like a blurry speck
+        this.radius = this.isHeart ? (Math.random() * 2.5 + 3.5) : (Math.random() * 2.5 + 0.5);
         this.vx = (Math.random() - 0.5) * 0.3;
         this.vy = -(Math.random() * 0.6 + 0.15);
         this.life = Math.random() * 300 + 150;
@@ -96,7 +98,6 @@ class Particle {
         this.hue = 330 + Math.random() * 40;          // pink-ish
         this.brightness = 70 + Math.random() * 20;
         this.flickerPhase = Math.random() * Math.PI * 2;
-        this.isHeart = Math.random() < 0.24;
         this.rotation = (Math.random() - 0.5) * 0.6;
     }
 
@@ -122,13 +123,13 @@ class Particle {
         if (alpha < 0.02) return;
 
         ctx.save();
-        ctx.globalAlpha = alpha;
-        ctx.shadowBlur = 12;
+        ctx.globalAlpha = this.isHeart ? Math.min(1, alpha * 1.3) : alpha;
+        ctx.shadowBlur = this.isHeart ? 6 : 12;
         ctx.shadowColor = `hsla(${this.hue}, 100%, ${this.brightness}%, 0.8)`;
-        ctx.fillStyle = `hsla(${this.hue}, 90%, ${this.brightness}%, 1)`;
+        ctx.fillStyle = `hsla(${this.hue}, 95%, ${this.brightness}%, 1)`;
 
         if (this.isHeart) {
-            const s = this.radius * 2.4;
+            const s = this.radius * 1.7;
             ctx.translate(this.x, this.y);
             ctx.rotate(this.rotation);
             ctx.beginPath();
@@ -136,6 +137,11 @@ class Particle {
             ctx.bezierCurveTo(-s, -s * 0.5, -s * 0.3, -s * 1.1, 0, -s * 0.35);
             ctx.bezierCurveTo(s * 0.3, -s * 1.1, s, -s * 0.5, 0, s * 0.3);
             ctx.fill();
+            // Thin bright outline so the heart notch reads clearly even when small
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = `hsla(${this.hue - 15}, 100%, 88%, 0.55)`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
         } else {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -901,7 +907,7 @@ class FlowerBloomApp {
         p.vy = -(0.35 + Math.random() * 0.35);
         p.isHeart = true;
         p.isBurst = true; // fades out permanently rather than recycling
-        p.radius = 2 + Math.random() * 1.8;
+        p.radius = 4 + Math.random() * 2.5;
         p.hue = 340 + Math.random() * 20;
         p.life = 140 + Math.random() * 60;
         p.maxLife = p.life;
@@ -955,7 +961,8 @@ class FlowerBloomApp {
             p.vx = Math.cos(angle) * speed;
             p.vy = Math.sin(angle) * speed - 0.6;
             p.isHeart = true;
-            p.radius = 2.5 + Math.random() * 2;
+            p.isBurst = true;
+            p.radius = 4.5 + Math.random() * 2.5;
             p.hue = 340 + Math.random() * 25;
             p.life = 90 + Math.random() * 40;
             p.maxLife = p.life;
