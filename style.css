@@ -2,7 +2,7 @@
    FLOWER BLOOM - Hand Gesture Controller
    ============================================ */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&display=swap');
-
+ 
 *,
 *::before,
 *::after {
@@ -10,7 +10,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+ 
 html, body {
     width: 100vw;
     height: 100vh;
@@ -18,14 +18,14 @@ html, body {
     background: #000;
     font-family: 'Inter', -apple-system, sans-serif;
 }
-
+ 
 /* ---- Container ---- */
 .container {
     position: relative;
     width: 100%;
     height: 100%;
 }
-
+ 
 /* ---- Webcam Video ---- */
 #webcam {
     position: absolute;
@@ -38,7 +38,7 @@ html, body {
     z-index: 1;
     filter: saturate(1.08) brightness(0.95) contrast(1.03);
 }
-
+ 
 /* ---- Canvas Overlay ---- */
 #canvas {
     position: absolute;
@@ -50,7 +50,7 @@ html, body {
     z-index: 2;
     pointer-events: none;
 }
-
+ 
 /* ---- Loading Screen ---- */
 .loading-overlay {
     position: absolute;
@@ -63,19 +63,19 @@ html, body {
     background: radial-gradient(ellipse at center, #241026 0%, #12061a 55%, #050208 100%);
     transition: opacity 0.9s ease, visibility 0.9s ease;
 }
-
+ 
 .loading-overlay.hidden {
     opacity: 0;
     visibility: hidden;
 }
-
+ 
 .loading-flower {
     width: 80px;
     height: 80px;
     position: relative;
     margin-bottom: 30px;
 }
-
+ 
 .loading-flower::after {
     content: '';
     position: absolute;
@@ -89,17 +89,17 @@ html, body {
     box-shadow: 0 0 30px rgba(255, 130, 190, 0.15);
     animation: ring-spin 6s linear infinite, ring-fade 2s ease-in-out infinite;
 }
-
+ 
 @keyframes ring-spin {
     from { transform: translate(-50%, -50%) rotate(0deg); }
     to { transform: translate(-50%, -50%) rotate(360deg); }
 }
-
+ 
 @keyframes ring-fade {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 0.9; }
 }
-
+ 
 .loading-flower::before {
     content: '✿';
     font-size: 60px;
@@ -111,7 +111,7 @@ html, body {
     filter: drop-shadow(0 0 15px rgba(255, 130, 190, 0.85));
     color: #ffb3d1;
 }
-
+ 
 @keyframes bloom-pulse {
     0%, 100% {
         transform: translate(-50%, -50%) scale(0.8);
@@ -124,7 +124,7 @@ html, body {
         filter: drop-shadow(0 0 28px rgba(255, 130, 190, 1));
     }
 }
-
+ 
 .loading-text {
     color: rgba(255, 210, 228, 0.92);
     font-size: 16px;
@@ -133,7 +133,7 @@ html, body {
     text-transform: uppercase;
     animation: text-fade 2s ease-in-out infinite;
 }
-
+ 
 .loading-subtext {
     color: rgba(255, 185, 205, 0.55);
     font-size: 12px;
@@ -141,12 +141,12 @@ html, body {
     letter-spacing: 2px;
     margin-top: 10px;
 }
-
+ 
 @keyframes text-fade {
     0%, 100% { opacity: 0.5; }
     50% { opacity: 1; }
 }
-
+ 
 /* ---- Camera Error State ---- */
 .camera-error {
     position: absolute;
@@ -161,20 +161,20 @@ html, body {
     background: radial-gradient(ellipse at center, #241026 0%, #12061a 55%, #050208 100%);
     transition: opacity 0.6s ease, visibility 0.6s ease;
 }
-
+ 
 .camera-error.hidden {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
 }
-
+ 
 .camera-error-icon {
     font-size: 48px;
     color: rgba(255, 150, 190, 0.7);
     margin-bottom: 18px;
     filter: drop-shadow(0 0 14px rgba(255, 130, 190, 0.5));
 }
-
+ 
 .camera-error-title {
     color: rgba(255, 220, 235, 0.95);
     font-size: 18px;
@@ -182,7 +182,7 @@ html, body {
     letter-spacing: 1px;
     margin-bottom: 10px;
 }
-
+ 
 .camera-error-text {
     color: rgba(255, 200, 220, 0.6);
     font-size: 14px;
@@ -190,7 +190,7 @@ html, body {
     max-width: 360px;
     line-height: 1.7;
 }
-
+ 
 /* ---- Instruction Toast ---- */
 .instructions {
     position: absolute;
@@ -214,18 +214,18 @@ html, body {
     transition: opacity 1s ease, transform 1s ease;
     box-shadow: 0 8px 36px rgba(255, 110, 165, 0.12);
 }
-
+ 
 .instructions.hidden {
     opacity: 0;
     transform: translateX(-50%) translateY(20px);
     pointer-events: none;
 }
-
+ 
 .instructions span {
     color: rgba(255, 175, 210, 1);
     font-weight: 600;
 }
-
+ 
 /* ---- Vignette ---- */
 .vignette {
     position: absolute;
@@ -238,12 +238,12 @@ html, body {
         rgba(10, 0, 8, 0.5) 100%
     );
 }
-
+ 
 /* ---- Photo inside the message card ---- */
 .photo-frame {
-    width: 108px;
-    height: 108px;
-    margin: 0 auto 20px;
+    flex: 0 0 auto;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     overflow: hidden;
     border: 2px solid rgba(255, 190, 215, 0.55);
@@ -251,18 +251,18 @@ html, body {
         0 0 0 5px rgba(255, 150, 195, 0.12),
         0 8px 28px rgba(255, 90, 150, 0.3);
 }
-
+ 
 .photo-frame.hidden {
     display: none;
 }
-
+ 
 .photo-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
-
+ 
 /* ---- Larger soft photo reveal behind the card, on full bloom ---- */
 .photo-reveal {
     position: absolute;
@@ -279,23 +279,23 @@ html, body {
     box-shadow: 0 0 90px rgba(255, 120, 175, 0.35);
     transition: opacity 2s ease, transform 2s ease;
 }
-
+ 
 .photo-reveal.visible {
     opacity: 0.85;
     transform: translate(-50%, -50%) scale(1);
 }
-
+ 
 .photo-reveal.hidden {
     display: block;
 }
-
+ 
 .photo-reveal img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: saturate(1.05) brightness(0.96);
 }
-
+ 
 .photo-reveal::after {
     content: '';
     position: absolute;
@@ -303,15 +303,19 @@ html, body {
     border-radius: 50%;
     background: radial-gradient(circle, transparent 55%, rgba(10, 2, 8, 0.55) 100%);
 }
-
-/* ---- Apology Message Card ---- */
+ 
+/* ---- Apology Message Card (horizontal layout: photo beside text) ---- */
 .message-card {
     position: absolute;
     top: 50%;
     left: 50%;
     z-index: 20;
-    width: min(480px, 82vw);
-    padding: 40px 40px 34px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: min(760px, 92vw);
+    max-height: 82vh;
+    padding: 36px 44px;
     background: linear-gradient(160deg, rgba(32, 11, 24, 0.76), rgba(16, 5, 15, 0.82));
     border: 1px solid rgba(255, 185, 210, 0.4);
     border-radius: 24px;
@@ -320,14 +324,31 @@ html, body {
     box-shadow:
         0 24px 70px rgba(255, 90, 150, 0.22),
         0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-    text-align: center;
+    text-align: left;
     transform: translate(-50%, -46%) scale(0.94);
     opacity: 0;
     pointer-events: none;
     transition: opacity 1.4s ease, transform 1.4s ease, box-shadow 2.5s ease;
     animation: card-glow-pulse 4s ease-in-out infinite;
 }
-
+ 
+.message-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-height: calc(82vh - 72px);
+    overflow-y: auto;
+    padding-right: 6px;
+}
+ 
+/* subtle, unobtrusive scrollbar for the text column */
+.message-text::-webkit-scrollbar {
+    width: 5px;
+}
+.message-text::-webkit-scrollbar-thumb {
+    background: rgba(255, 175, 210, 0.35);
+    border-radius: 4px;
+}
+ 
 .message-card::before,
 .message-card::after {
     position: absolute;
@@ -336,62 +357,61 @@ html, body {
     color: rgba(255, 190, 215, 0.55);
     line-height: 1;
 }
-
+ 
 .message-card::before {
     content: '✿';
     top: 14px;
     left: 18px;
 }
-
+ 
 .message-card::after {
     content: '✿';
     bottom: 14px;
     right: 18px;
 }
-
+ 
 .message-card.visible {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
     pointer-events: auto;
 }
-
+ 
 .message-card.hidden {
-    display: block;
+    display: flex;
 }
-
+ 
 @keyframes card-glow-pulse {
     0%, 100% { box-shadow: 0 24px 70px rgba(255, 90, 150, 0.18), 0 0 0 1px rgba(255,255,255,0.04) inset; }
     50% { box-shadow: 0 24px 84px rgba(255, 115, 170, 0.32), 0 0 0 1px rgba(255,255,255,0.06) inset; }
 }
-
+ 
 .message-heading {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-weight: 500;
-    font-size: 15px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: rgba(255, 180, 210, 0.85);
-    margin-bottom: 16px;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: rgba(255, 180, 210, 0.9);
+    margin-bottom: 14px;
 }
-
+ 
 .message-body {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
-    font-size: 21px;
-    line-height: 1.65;
+    font-size: 18px;
+    line-height: 1.6;
     color: rgba(255, 235, 242, 0.96);
     text-shadow: 0 0 18px rgba(255, 130, 190, 0.25);
 }
-
+ 
 .message-signature {
-    margin-top: 20px;
+    margin-top: 16px;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 16px;
+    font-size: 15px;
     color: rgba(255, 195, 220, 0.75);
 }
-
+ 
 /* ---- Replay Button ---- */
 .replay-btn {
     position: absolute;
@@ -414,25 +434,32 @@ html, body {
     transition: opacity 0.8s ease, transform 0.8s ease, background 0.3s ease;
     box-shadow: 0 6px 24px rgba(255, 100, 150, 0.1);
 }
-
+ 
 .replay-btn:hover {
     background: rgba(40, 14, 28, 0.7);
 }
-
+ 
 .replay-btn.hidden {
     opacity: 0;
     transform: translateX(-50%) translateY(16px);
     pointer-events: none;
 }
-
-/* ---- Small screens ---- */
-@media (max-width: 560px) {
+ 
+/* ---- Small screens: horizontal layout doesn't fit, so stack instead ---- */
+@media (max-width: 640px) {
     .message-card {
+        flex-direction: column;
+        gap: 16px;
         padding: 26px 24px 22px;
         width: 88vw;
+        max-height: 84vh;
+    }
+    .message-text {
+        max-height: none;
+        text-align: center;
     }
     .message-body {
-        font-size: 18px;
+        font-size: 17px;
     }
     .instructions {
         bottom: 88px;
@@ -447,7 +474,6 @@ html, body {
     .photo-frame {
         width: 84px;
         height: 84px;
-        margin-bottom: 16px;
     }
     .photo-reveal {
         width: 68vw;
